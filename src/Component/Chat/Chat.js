@@ -4,11 +4,11 @@ import io from "socket.io-client";
 import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
 import Messages from "../Messages/Messages";
+import { API_URL } from "../../Utils/axiosReq";
 
 import "./Chat.css";
 
 let socket;
-
 
 const Chat = ({ location }) => {
   const [room, setRoom] = useState("");
@@ -17,7 +17,7 @@ const Chat = ({ location }) => {
   const [message, setMessage] = useState("");
   const [users, setUsers] = useState([]);
 
-  const ENDPOINT = "https://chatappbackend2298.herokuapp.com/";
+  const ENDPOINT = API_URL;
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
     socket = io(ENDPOINT);
@@ -56,9 +56,9 @@ const Chat = ({ location }) => {
   return (
     <div className="outerContainer">
       <div className="container">
-        <InfoBar room={room} users={users}/>
+        <InfoBar room={room} users={users} />
 
-        <Messages messages={messages} name={name}/>
+        <Messages messages={messages} name={name} />
 
         <Input
           message={message}
