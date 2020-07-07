@@ -6,16 +6,18 @@ import { useHistory, Link } from "react-router-dom";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 
-const SignIn = () => {
+const SignUp = () => {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [dob, setDob] = useState("");
   const [password, setPassword] = useState("");
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
 
-  const signIn = async () => {
-    const data = await Auth.logIn({ email, password });
+  const signUp = async () => {
+    const data = await Auth.signUp({ name, dob, email, password });
     console.log(data);
     setIsLoading(false);
     if (data.error) {
@@ -40,7 +42,14 @@ const SignIn = () => {
       <div className="joinOuterContainer">
         <div className="joinInnerContainer">
           <h1 className="heading">SignIn</h1>
-
+          <div>
+            <input
+              placeholder="Name"
+              className="joinInput"
+              type="text"
+              onChange={event => setName(event.target.value)}
+            />
+          </div>
           <div>
             <input
               placeholder="Email"
@@ -52,9 +61,17 @@ const SignIn = () => {
           <div>
             <input
               placeholder="Password"
-              className="joinInput mt-20"
+              className="joinInput"
               type="password"
               onChange={event => setPassword(event.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              placeholder="Date Of Birth"
+              className="joinInput"
+              type="text"
+              onChange={event => setDob(event.target.value)}
             />
           </div>
           <button
@@ -62,13 +79,13 @@ const SignIn = () => {
             type="submit"
             onClick={() => {
               setIsLoading(true);
-              signIn();
+              signUp();
             }}
           >
-            SignIn
+            SignUP
           </button>
-          <div>
-            New User? <Link to="/signup">SignUp here</Link>
+          <div style={{ color: "white" }}>
+            Already User? <Link to="/signin">Login Here</Link>
           </div>
         </div>
       </div>
@@ -98,4 +115,4 @@ const SignIn = () => {
     </React.Fragment>
   );
 };
-export default SignIn;
+export default SignUp;

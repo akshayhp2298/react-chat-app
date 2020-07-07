@@ -11,6 +11,13 @@ export default async (req, header, body) => {
       } catch (e) {
         return e.response.data;
       }
+    case "SIGNUP":
+      try {
+        const response = await axios.post(`${API_URL}/auth/signup`, body);
+        return response;
+      } catch (e) {
+        return e.response.data;
+      }
     default:
       return null;
   }

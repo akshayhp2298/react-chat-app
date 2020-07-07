@@ -12,6 +12,14 @@ class Auth {
     }
     return data;
   }
+  async signUp({ name, dob, email, password }) {
+    const data = await request("SIGNUP", {}, { name, dob, email, password });
+    if (!data.error) {
+      localStorage.setItem("token", data);
+      this.isAuthenticated = true;
+    }
+    return data;
+  }
   logOut() {
     localStorage.removeItem("token");
     this.isAuthenticated = false;
